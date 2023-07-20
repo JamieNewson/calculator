@@ -4,12 +4,77 @@
 }
 
 .container {
-  width: 800px;
+  width: 360px;
+  height: 540px;
   margin: 50px auto;
+  padding: 5px;
+  background-color: #bdb5bf;
+  border-radius: 20px;
+  box-shadow: 0 0 5px #bdb5bf;
 }
 
-.keypad {
+.calculator {
+  margin: 15px;
   display: grid;
-  grid: repeat(4, 1fr) / repeat(4, 1fr);
-  gap: 50px;
+  grid: 100px 50px repeat(3, 75px) / repeat(4, 75px);
+  gap: 10px;
+  text-align: right;
+}
+
+.display {
+  margin-bottom: 10px;
+  background-color: #958f96;
+  border-radius: 20px;
+  grid-column: 1 / span 4;
+  padding: 15px;
+  color: #1c1c1c;
+  box-shadow: 0 0 5px #b0a9b2;
+}
+
+.functions {
+  display: flex;
+  grid-column: 1 / span 4;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 75px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 5px #b0a9b2;
+}
+
+.btn:hover {
+  background-color: #fff;
+}
+
+.functions .btn {
+  border-radius: 20px;
+  flex: 0 0 47%;
+  line-height: 50px;
+}
+
+.operator {
+  background-color: #e0d6e3;
+}
+.operator:hover {
+  background-color: #efe4f2;
+}
+
+.clear {
+  background-color: rgb(255, 226, 165);
+}
+.clear:hover {
+  background-color: rgb(255, 238, 201);
+}
+
+.delete {
+  background-color: rgb(255, 176, 176);
+}
+.delete:hover {
+  background-color: rgb(255, 198, 198);
 }
