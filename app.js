@@ -29,7 +29,9 @@ function handleOperation() {
       break;
     }
   }
+
   updateDisplay();
+
   selectedOperator = null;
   previousValue = answer;
   currentValue = "0";
@@ -37,9 +39,12 @@ function handleOperation() {
 
 function keyClicked(click) {
   const input = click.target.textContent;
+  if (previousValue != 0) if (!selectedOperator) return;
+
   if (currentValue == 0) currentValue = input;
   else if (input == "." && !currentValue.includes(".")) currentValue += input;
   else currentValue += input;
+
   updateDisplay();
 }
 
@@ -52,17 +57,22 @@ function operatorClicked(operator) {
     currentValue = "0";
   }
   selectedOperator = operator;
+
   updateDisplay();
 }
 
 function handleDelete() {
+  console.log(answer, selectedOperator, currentValue);
   if (selectedOperator && currentValue == 0) {
     selectedOperator = null;
-    currentValue = previousValue;
-    previousValue = 0;
+    if (answer == 0) {
+      currentValue = previousValue;
+      previousValue = 0;
+    }
   } else if (currentValue.length > 1)
     currentValue = currentValue.slice(0, currentValue.length - 1);
   else currentValue = "0";
+
   updateDisplay();
 }
 
@@ -71,6 +81,7 @@ function handleClear() {
   previousValue = "0";
   selectedOperator = null;
   answer = 0;
+
   updateDisplay();
 }
 
@@ -87,7 +98,7 @@ function updateDisplay() {
       operatorText = "x";
       break;
     case "divide":
-      operatorText = "/";
+      operatorText = "÷";
       break;
   }
   if (previousValue == 0) {
