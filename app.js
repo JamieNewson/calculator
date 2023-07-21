@@ -29,6 +29,7 @@ function handleOperation() {
       break;
     }
   }
+  result.textContent = answer;
   selectedOperator = null;
   previousValue = answer;
   currentValue = "0";
@@ -38,11 +39,13 @@ function handleOperation() {
 function keyClicked(click) {
   const input = click.target.textContent;
   if (currentValue == 0) currentValue = input;
+  else if (input == "." && !currentValue.includes(".")) currentValue += input;
   else currentValue += input;
+  handleDisplay();
 }
 
 function operatorClicked(operator) {
-  if (selectedOperator) {
+  if (selectedOperator && currentValue != 0) {
     handleOperation();
   }
   if (previousValue == "0") {
@@ -50,15 +53,45 @@ function operatorClicked(operator) {
     currentValue = "0";
   }
   selectedOperator = operator;
+  handleDisplay(operator);
+}
+
+function handleDisplay() {
+  let operatorText = "";
+  switch (selectedOperator) {
+    case "add":
+      operatorText = "+";
+      break;
+    case "subtract":
+      operatorText = "-";
+      break;
+    case "multiply":
+      operatorText = "x";
+      break;
+    case "divide":
+      operatorText = "/";
+      break;
+  }
+  if (previousValue == 0) {
+    operation.textContent = currentValue;
+  } else if (currentValue == 0) {
+    operation.textContent = `${previousValue} ${operatorText}`;
+  } else {
+    operation.textContent = `${previousValue} ${operatorText} ${currentValue}`;
+  }
 }
 
 const numberKeys = document.querySelectorAll(".key");
+
 const add = document.querySelector(".add");
 const subtract = document.querySelector(".subtract");
 const multiply = document.querySelector(".multiply");
 const divide = document.querySelector(".divide");
 const point = document.querySelector(".point");
 const process = document.querySelector(".process");
+
+const operation = document.querySelector(".operation");
+const result = document.querySelector(".result");
 
 for (let key of numberKeys) {
   key.addEventListener("click", keyClicked);
@@ -68,4 +101,5 @@ add.addEventListener("click", () => operatorClicked("add"));
 subtract.addEventListener("click", () => operatorClicked("subtract"));
 multiply.addEventListener("click", () => operatorClicked("multiply"));
 divide.addEventListener("click", () => operatorClicked("divide"));
+point.addEventListener("click", keyClicked);
 process.addEventListener("click", () => handleOperation());
